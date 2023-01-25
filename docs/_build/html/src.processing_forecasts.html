@@ -1,0 +1,643 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="Models" href="src.models.html" />
+
+    <!-- Generated with Sphinx 7.0.1 and Furo 2023.05.20 -->
+        <title>Processing forecasts - ts_forecaster 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=e6660623a769aa55fea372102b9bf3151b292993" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">ts_forecaster 0.1.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  
+  <span class="sidebar-brand-text">ts_forecaster 0.1.0 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Documentation:</span></p>
+<ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="src.html">src package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of src package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="src.models.html">Models</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Processing forecasts</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="processing-forecasts">
+<h1>Processing forecasts<a class="headerlink" href="#processing-forecasts" title="Permalink to this heading">#</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="module-processing_forecasts.ensemble_learning">
+<span id="ensemble-learning"></span><h2>ensemble learning<a class="headerlink" href="#module-processing_forecasts.ensemble_learning" title="Permalink to this heading">#</a></h2>
+<p>Ensemble learning methods can be used for improoving forecasting models</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="processing_forecasts.ensemble_learning.ensemble_learning">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">processing_forecasts.ensemble_learning.</span></span><span class="sig-name descname"><span class="pre">ensemble_learning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">forecasts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validation_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing_forecasts/ensemble_learning.html#ensemble_learning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing_forecasts.ensemble_learning.ensemble_learning" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class embeds the ensemble learning methods:</p>
+<p>Methods:</p>
+<ul class="simple">
+<li><p>Bagging: multiple independent models are trained on different subsets of the training data, and their predictions are combined through averaging, voting or weighted averaging (Random Forest).</p></li>
+<li><p>Boosting: multiple models are trained sequentially, with each new model attempting to correct the errors made by the previous models (Gradient Boosting algorithm).</p></li>
+<li><p>Stacking: multiple models with different characteristics are trained and their predictions are combined using a meta-model(Decision Tree Regressor).</p></li>
+</ul>
+<p>Attributes:</p>
+<ul class="simple">
+<li><p>forecasts (list) : list of the forecasts to use</p></li>
+<li><p>validation_data (numpy array) : numpy array of the validation data</p></li>
+</ul>
+<p>Import and use:</p>
+<blockquote>
+<div><p>from src.processing_forecasts.ensemble_learning import ensemble_learning</p>
+<p>ensemble_learning = ensemble_learning(forecasts, validation_data)</p>
+<p>bagged_forecast = ensemble_learning.bagging()</p>
+<p>boosted_forecast = ensemble_learning.boosting()</p>
+<p>stacked_forecast = ensemble_learning.stacking()</p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="processing_forecasts.ensemble_learning.ensemble_learning.bagging">
+<span class="sig-name descname"><span class="pre">bagging</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing_forecasts/ensemble_learning.html#ensemble_learning.bagging"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing_forecasts.ensemble_learning.ensemble_learning.bagging" title="Permalink to this definition">#</a></dt>
+<dd><p>This method implements the bagging ensemble method.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="processing_forecasts.ensemble_learning.ensemble_learning.boosting">
+<span class="sig-name descname"><span class="pre">boosting</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing_forecasts/ensemble_learning.html#ensemble_learning.boosting"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing_forecasts.ensemble_learning.ensemble_learning.boosting" title="Permalink to this definition">#</a></dt>
+<dd><p>This method implements the boosting ensemble method.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="processing_forecasts.ensemble_learning.ensemble_learning.stacking">
+<span class="sig-name descname"><span class="pre">stacking</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing_forecasts/ensemble_learning.html#ensemble_learning.stacking"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing_forecasts.ensemble_learning.ensemble_learning.stacking" title="Permalink to this definition">#</a></dt>
+<dd><p>This method implements the stacking ensemble method.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-processing_forecasts.metrics">
+<span id="metrics"></span><h2>metrics<a class="headerlink" href="#module-processing_forecasts.metrics" title="Permalink to this heading">#</a></h2>
+<p>Time series forecast evaluation metrics and methods</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="processing_forecasts.metrics.Evaluate">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">processing_forecasts.metrics.</span></span><span class="sig-name descname"><span class="pre">Evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prediction</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing_forecasts/metrics.html#Evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing_forecasts.metrics.Evaluate" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Evaluate: this class contains different mertics that can be used for time series forecast evaluation</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="processing_forecasts.metrics.Evaluate.mae">
+<span class="sig-name descname"><span class="pre">mae</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing_forecasts/metrics.html#Evaluate.mae"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing_forecasts.metrics.Evaluate.mae" title="Permalink to this definition">#</a></dt>
+<dd><p>mean absolute error</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="processing_forecasts.metrics.Evaluate.mape">
+<span class="sig-name descname"><span class="pre">mape</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing_forecasts/metrics.html#Evaluate.mape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing_forecasts.metrics.Evaluate.mape" title="Permalink to this definition">#</a></dt>
+<dd><p>mean absolute percentage error</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="processing_forecasts.metrics.Evaluate.rmse">
+<span class="sig-name descname"><span class="pre">rmse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing_forecasts/metrics.html#Evaluate.rmse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing_forecasts.metrics.Evaluate.rmse" title="Permalink to this definition">#</a></dt>
+<dd><p>root mean squared error</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="processing_forecasts.metrics.Evaluate.mase">
+<span class="sig-name descname"><span class="pre">mase</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing_forecasts/metrics.html#Evaluate.mase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing_forecasts.metrics.Evaluate.mase" title="Permalink to this definition">#</a></dt>
+<dd><p>mean absolute scaled error</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="processing_forecasts.metrics.Evaluate.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing_forecasts/metrics.html#Evaluate.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing_forecasts.metrics.Evaluate.evaluate" title="Permalink to this definition">#</a></dt>
+<dd><p>evaluate the model</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="processing_forecasts.metrics.Evaluate.spikes_covering">
+<span class="sig-name descname"><span class="pre">spikes_covering</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing_forecasts/metrics.html#Evaluate.spikes_covering"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing_forecasts.metrics.Evaluate.spikes_covering" title="Permalink to this definition">#</a></dt>
+<dd><p>compute the proportion of local extremes covered by the forecast</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="processing_forecasts.metrics.Evaluate.overlay_dx_visualisation_df">
+<span class="sig-name descname"><span class="pre">overlay_dx_visualisation_df</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing_forecasts/metrics.html#Evaluate.overlay_dx_visualisation_df"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing_forecasts.metrics.Evaluate.overlay_dx_visualisation_df" title="Permalink to this definition">#</a></dt>
+<dd><p>computes the overlay_dx metric</p>
+</dd></dl>
+
+<p>Import and usage:</p>
+<blockquote>
+<div><p>from src.processing_forecasts.metrics import Evaluate</p>
+<p>metrics = Evaluate(target_values = df[“target_values”], prediction = df[“prediction”])</p>
+<p>metrics.evaluate()</p>
+<p>metrics.spikes_covering()</p>
+<p>results, aeras = metrics.overlay_dx_visualisation_df(df,100,0.1,0.1)</p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="processing_forecasts.metrics.Evaluate.calculate_overlay_percentages_multi">
+<span class="sig-name descname"><span class="pre">calculate_overlay_percentages_multi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">forecasts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_percentage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_percentage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing_forecasts/metrics.html#Evaluate.calculate_overlay_percentages_multi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing_forecasts.metrics.Evaluate.calculate_overlay_percentages_multi" title="Permalink to this definition">#</a></dt>
+<dd><p>calculate_overlay_percentages_multi: calculate the overlay percentages for multiple forecasts</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>forecasts</strong> (<em>dict</em>) – dictionary of forecasts, keys are the names of the forecasts (str), values are the forecasts (np.array)</p></li>
+<li><p><strong>max_percentage</strong> (<em>int</em>) – maximum percentage of the range to calculate</p></li>
+<li><p><strong>min_percentage</strong> (<em>int</em>) – minimum percentage of the range to calculate</p></li>
+<li><p><strong>step</strong> (<em>int</em>) – step size for the percentages</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing_forecasts/metrics.html#Evaluate.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Permalink to this definition">#</a></dt>
+<dd><p>evaluate: evaluate the model</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">mae</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing_forecasts/metrics.html#Evaluate.mae"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id1" title="Permalink to this definition">#</a></dt>
+<dd><p>mae: mean absolute error</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">mape</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing_forecasts/metrics.html#Evaluate.mape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id2" title="Permalink to this definition">#</a></dt>
+<dd><p>mape: mean absolute percentage error</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id3">
+<span class="sig-name descname"><span class="pre">mase</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing_forecasts/metrics.html#Evaluate.mase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id3" title="Permalink to this definition">#</a></dt>
+<dd><p>mase: mean absolute scaled error</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="processing_forecasts.metrics.Evaluate.overlay_dx">
+<span class="sig-name descname"><span class="pre">overlay_dx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing_forecasts/metrics.html#Evaluate.overlay_dx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing_forecasts.metrics.Evaluate.overlay_dx" title="Permalink to this definition">#</a></dt>
+<dd><p>overlay_dx computes the percentage of values where the absolute difference between the forecast and actual values is less than or equal to x</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="processing_forecasts.metrics.Evaluate.overlay_dx_moo">
+<span class="sig-name descname"><span class="pre">overlay_dx_moo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">forecasts_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_percentage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_percentage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing_forecasts/metrics.html#Evaluate.overlay_dx_moo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing_forecasts.metrics.Evaluate.overlay_dx_moo" title="Permalink to this definition">#</a></dt>
+<dd><p>overlay method for the multi objective approach</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">overlay_dx_visualisation_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">forecasts_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_percentage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_percentage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing_forecasts/metrics.html#Evaluate.overlay_dx_visualisation_df"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id4" title="Permalink to this definition">#</a></dt>
+<dd><p>calculate_overlay_percentages_multi: calculate the overlay percentages for multiple forecasts</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>forecasts_df</strong> (<em>pd.DataFrame</em>) – DataFrame of forecasts, where columns are the names of the forecasts and rows are the forecast values</p></li>
+<li><p><strong>max_percentage</strong> (<em>int</em>) – maximum percentage of the range to calculate</p></li>
+<li><p><strong>min_percentage</strong> (<em>int</em>) – minimum percentage of the range to calculate</p></li>
+<li><p><strong>step</strong> (<em>int</em>) – step size for the percentages</p></li>
+</ul>
+</dd>
+</dl>
+<dl>
+<dt>Description:</dt><dd><p>Overlay_dx is a score associated with a visualisation that provides a better understanding of the performance of our forecasts. Overlay_dx consists of several measures of the overlay metric, which draws an interval around the target values and returns the percentage of forecast values that fall within this interval. Overlay_dx calculates different measures of the overlay metric by reducing the size of its interval.</p>
+<p>A score of 77% represents how well the forecasted values align with the actual values at different thresholds. It indicates that the achieved score is 77% of the maximum possible score, where perfect alignment would occur at all thresholds.</p>
+<p>The score reflects the overall accuracy relative to the ideal scenario. The higher the score, the better the alignment between forecasted and actual values, while a lower score suggests larger deviations.</p>
+<p>The overlay curve visualization is the key advantage of this metric. It allows for a quick assessment of model performance. By observing the curve, you can easily identify where significant deviations from the ideal scenario occur, helping to point areas for improvement.</p>
+<p>Unlike other metrics, such as Mean Absolute Error, the overlay curve is less impacted by outliers, providing a more comprehensive view of accuracy.
+In summary, the overlay curve offers an intuitive and concise way to evaluate model performance, providing insights into accuracy across different thresholds and highlighting areas for optimization.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id5">
+<span class="sig-name descname"><span class="pre">rmse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing_forecasts/metrics.html#Evaluate.rmse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id5" title="Permalink to this definition">#</a></dt>
+<dd><p>rmse: root mean squared error</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id6">
+<span class="sig-name descname"><span class="pre">spikes_covering</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing_forecasts/metrics.html#Evaluate.spikes_covering"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id6" title="Permalink to this definition">#</a></dt>
+<dd><p>spikes_covering: compute the proportion of local extremes covered by the forecast</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="processing_forecasts.metrics.TestEvaluate">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">processing_forecasts.metrics.</span></span><span class="sig-name descname"><span class="pre">TestEvaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing_forecasts/metrics.html#TestEvaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing_forecasts.metrics.TestEvaluate" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TestCase</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="processing_forecasts.metrics.TestEvaluate.test_evaluate">
+<span class="sig-name descname"><span class="pre">test_evaluate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing_forecasts/metrics.html#TestEvaluate.test_evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing_forecasts.metrics.TestEvaluate.test_evaluate" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-processing_forecasts.multi_objective_optimization">
+<span id="multi-objective-optimization"></span><h2>multi objective optimization<a class="headerlink" href="#module-processing_forecasts.multi_objective_optimization" title="Permalink to this heading">#</a></h2>
+<p>Multi objective Optimization can find the best weighted average in regard of multiple metrics to minimize and scores to maximize.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="processing_forecasts.multi_objective_optimization.MyProblem">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">processing_forecasts.multi_objective_optimization.</span></span><span class="sig-name descname"><span class="pre">MyProblem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forecasts_cols</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_col</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_evaluations</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing_forecasts/multi_objective_optimization.html#MyProblem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing_forecasts.multi_objective_optimization.MyProblem" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Problem</span></code></p>
+<p>MyProblem: class to define the multi-objective optimization problem</p>
+<blockquote>
+<div><p>Three objectives:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Minimize the MAE</p></li>
+<li><p>Minimize the RMSE</p></li>
+<li><p>Maximize the overlay_dx_score</p></li>
+</ol>
+</div></blockquote>
+<p>Find the best weights for the weighted average forecast according to the three objectives.</p>
+</div></blockquote>
+<p>how it works: <a class="reference external" href="https://platypus.readthedocs.io/en/latest/getting-started.html#defining-a-problem">https://platypus.readthedocs.io/en/latest/getting-started.html#defining-a-problem</a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="processing_forecasts.multi_objective_optimization.MyProblem.df">
+<span class="sig-name descname"><span class="pre">df</span></span><a class="headerlink" href="#processing_forecasts.multi_objective_optimization.MyProblem.df" title="Permalink to this definition">#</a></dt>
+<dd><p>pandas dataframe with the forecasts and the target values</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="processing_forecasts.multi_objective_optimization.MyProblem.target_values">
+<span class="sig-name descname"><span class="pre">target_values</span></span><a class="headerlink" href="#processing_forecasts.multi_objective_optimization.MyProblem.target_values" title="Permalink to this definition">#</a></dt>
+<dd><p>target values</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="processing_forecasts.multi_objective_optimization.MyProblem.forecasts">
+<span class="sig-name descname"><span class="pre">forecasts</span></span><a class="headerlink" href="#processing_forecasts.multi_objective_optimization.MyProblem.forecasts" title="Permalink to this definition">#</a></dt>
+<dd><p>dictionary of forecasts, keys are the approach names of the forecasts (str), values are the forecasts (np.array)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Import and usage:</p>
+<blockquote>
+<div><p>from src.processing_forecasts.multi_objective_optimization import find_best_weights</p>
+<p>best_weights , best_result = find_best_weights(df, forecasts_cols, target_col, max_evaluations)</p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="processing_forecasts.multi_objective_optimization.MyProblem.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">solution</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing_forecasts/multi_objective_optimization.html#MyProblem.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing_forecasts.multi_objective_optimization.MyProblem.evaluate" title="Permalink to this definition">#</a></dt>
+<dd><p>Evaluate the solution</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="processing_forecasts.multi_objective_optimization.MyProblem.mae_loss_function">
+<span class="sig-name descname"><span class="pre">mae_loss_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weights</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing_forecasts/multi_objective_optimization.html#MyProblem.mae_loss_function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing_forecasts.multi_objective_optimization.MyProblem.mae_loss_function" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute the MAE between the actual data and the weighted average forecast</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="processing_forecasts.multi_objective_optimization.MyProblem.overlay_dx_gain_function">
+<span class="sig-name descname"><span class="pre">overlay_dx_gain_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weights</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing_forecasts/multi_objective_optimization.html#MyProblem.overlay_dx_gain_function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing_forecasts.multi_objective_optimization.MyProblem.overlay_dx_gain_function" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute the overlay_dx_score between the actual data and the weighted average forecast</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="processing_forecasts.multi_objective_optimization.MyProblem.rmse_loss_function">
+<span class="sig-name descname"><span class="pre">rmse_loss_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weights</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing_forecasts/multi_objective_optimization.html#MyProblem.rmse_loss_function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing_forecasts.multi_objective_optimization.MyProblem.rmse_loss_function" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute the RMSE between the actual data and the weighted average forecast</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="processing_forecasts.multi_objective_optimization.find_best_weights">
+<span class="sig-prename descclassname"><span class="pre">processing_forecasts.multi_objective_optimization.</span></span><span class="sig-name descname"><span class="pre">find_best_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forecasts_cols</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_col</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_evaluations</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing_forecasts/multi_objective_optimization.html#find_best_weights"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing_forecasts.multi_objective_optimization.find_best_weights" title="Permalink to this definition">#</a></dt>
+<dd><dl>
+<dt>find_best_weights: find the best weights for the weighted average of forecasts according to the three objectives.</dt><dd><dl class="simple">
+<dt>Three objectives:</dt><dd><ol class="arabic simple">
+<li><p>Minimize the MAE</p></li>
+<li><p>Minimize the RMSE</p></li>
+<li><p>Maximize the overlay_dx_score</p></li>
+</ol>
+</dd>
+</dl>
+<p>Find the best weights for the weighted average forecast according to the three objectives.</p>
+</dd>
+</dl>
+<p>how it works: <a class="reference external" href="https://platypus.readthedocs.io/en/latest/getting-started.html#defining-a-problem">https://platypus.readthedocs.io/en/latest/getting-started.html#defining-a-problem</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – pandas dataframe with the forecasts and the target values</p></li>
+<li><p><strong>num_variables</strong> (<em>int</em>) – number of variables</p></li>
+<li><p><strong>target_values</strong> (<em>np.array</em>) – target values</p></li>
+<li><p><strong>forecasts</strong> (<em>dict</em>) – dictionary of forecasts, keys are the approach names of the forecasts (str), values are the forecasts (np.array)</p></li>
+</ul>
+</dd>
+</dl>
+<p>Import: from src.processing_forecasts.multi_objective_optimization import find_best_weights</p>
+</dd></dl>
+
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          <a class="prev-page" href="src.models.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Models</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2023, Thomas Jaillon / SMILE
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Processing forecasts</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-processing_forecasts.ensemble_learning">ensemble learning</a><ul>
+<li><a class="reference internal" href="#processing_forecasts.ensemble_learning.ensemble_learning"><code class="docutils literal notranslate"><span class="pre">ensemble_learning</span></code></a><ul>
+<li><a class="reference internal" href="#processing_forecasts.ensemble_learning.ensemble_learning.bagging"><code class="docutils literal notranslate"><span class="pre">ensemble_learning.bagging()</span></code></a></li>
+<li><a class="reference internal" href="#processing_forecasts.ensemble_learning.ensemble_learning.boosting"><code class="docutils literal notranslate"><span class="pre">ensemble_learning.boosting()</span></code></a></li>
+<li><a class="reference internal" href="#processing_forecasts.ensemble_learning.ensemble_learning.stacking"><code class="docutils literal notranslate"><span class="pre">ensemble_learning.stacking()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-processing_forecasts.metrics">metrics</a><ul>
+<li><a class="reference internal" href="#processing_forecasts.metrics.Evaluate"><code class="docutils literal notranslate"><span class="pre">Evaluate</span></code></a><ul>
+<li><a class="reference internal" href="#processing_forecasts.metrics.Evaluate.mae"><code class="docutils literal notranslate"><span class="pre">Evaluate.mae()</span></code></a></li>
+<li><a class="reference internal" href="#processing_forecasts.metrics.Evaluate.mape"><code class="docutils literal notranslate"><span class="pre">Evaluate.mape()</span></code></a></li>
+<li><a class="reference internal" href="#processing_forecasts.metrics.Evaluate.rmse"><code class="docutils literal notranslate"><span class="pre">Evaluate.rmse()</span></code></a></li>
+<li><a class="reference internal" href="#processing_forecasts.metrics.Evaluate.mase"><code class="docutils literal notranslate"><span class="pre">Evaluate.mase()</span></code></a></li>
+<li><a class="reference internal" href="#processing_forecasts.metrics.Evaluate.evaluate"><code class="docutils literal notranslate"><span class="pre">Evaluate.evaluate()</span></code></a></li>
+<li><a class="reference internal" href="#processing_forecasts.metrics.Evaluate.spikes_covering"><code class="docutils literal notranslate"><span class="pre">Evaluate.spikes_covering()</span></code></a></li>
+<li><a class="reference internal" href="#processing_forecasts.metrics.Evaluate.overlay_dx_visualisation_df"><code class="docutils literal notranslate"><span class="pre">Evaluate.overlay_dx_visualisation_df()</span></code></a></li>
+<li><a class="reference internal" href="#processing_forecasts.metrics.Evaluate.calculate_overlay_percentages_multi"><code class="docutils literal notranslate"><span class="pre">Evaluate.calculate_overlay_percentages_multi()</span></code></a></li>
+<li><a class="reference internal" href="#id0"><code class="docutils literal notranslate"><span class="pre">Evaluate.evaluate()</span></code></a></li>
+<li><a class="reference internal" href="#id1"><code class="docutils literal notranslate"><span class="pre">Evaluate.mae()</span></code></a></li>
+<li><a class="reference internal" href="#id2"><code class="docutils literal notranslate"><span class="pre">Evaluate.mape()</span></code></a></li>
+<li><a class="reference internal" href="#id3"><code class="docutils literal notranslate"><span class="pre">Evaluate.mase()</span></code></a></li>
+<li><a class="reference internal" href="#processing_forecasts.metrics.Evaluate.overlay_dx"><code class="docutils literal notranslate"><span class="pre">Evaluate.overlay_dx()</span></code></a></li>
+<li><a class="reference internal" href="#processing_forecasts.metrics.Evaluate.overlay_dx_moo"><code class="docutils literal notranslate"><span class="pre">Evaluate.overlay_dx_moo()</span></code></a></li>
+<li><a class="reference internal" href="#id4"><code class="docutils literal notranslate"><span class="pre">Evaluate.overlay_dx_visualisation_df()</span></code></a></li>
+<li><a class="reference internal" href="#id5"><code class="docutils literal notranslate"><span class="pre">Evaluate.rmse()</span></code></a></li>
+<li><a class="reference internal" href="#id6"><code class="docutils literal notranslate"><span class="pre">Evaluate.spikes_covering()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#processing_forecasts.metrics.TestEvaluate"><code class="docutils literal notranslate"><span class="pre">TestEvaluate</span></code></a><ul>
+<li><a class="reference internal" href="#processing_forecasts.metrics.TestEvaluate.test_evaluate"><code class="docutils literal notranslate"><span class="pre">TestEvaluate.test_evaluate()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-processing_forecasts.multi_objective_optimization">multi objective optimization</a><ul>
+<li><a class="reference internal" href="#processing_forecasts.multi_objective_optimization.MyProblem"><code class="docutils literal notranslate"><span class="pre">MyProblem</span></code></a><ul>
+<li><a class="reference internal" href="#processing_forecasts.multi_objective_optimization.MyProblem.df"><code class="docutils literal notranslate"><span class="pre">MyProblem.df</span></code></a></li>
+<li><a class="reference internal" href="#processing_forecasts.multi_objective_optimization.MyProblem.target_values"><code class="docutils literal notranslate"><span class="pre">MyProblem.target_values</span></code></a></li>
+<li><a class="reference internal" href="#processing_forecasts.multi_objective_optimization.MyProblem.forecasts"><code class="docutils literal notranslate"><span class="pre">MyProblem.forecasts</span></code></a></li>
+<li><a class="reference internal" href="#processing_forecasts.multi_objective_optimization.MyProblem.evaluate"><code class="docutils literal notranslate"><span class="pre">MyProblem.evaluate()</span></code></a></li>
+<li><a class="reference internal" href="#processing_forecasts.multi_objective_optimization.MyProblem.mae_loss_function"><code class="docutils literal notranslate"><span class="pre">MyProblem.mae_loss_function()</span></code></a></li>
+<li><a class="reference internal" href="#processing_forecasts.multi_objective_optimization.MyProblem.overlay_dx_gain_function"><code class="docutils literal notranslate"><span class="pre">MyProblem.overlay_dx_gain_function()</span></code></a></li>
+<li><a class="reference internal" href="#processing_forecasts.multi_objective_optimization.MyProblem.rmse_loss_function"><code class="docutils literal notranslate"><span class="pre">MyProblem.rmse_loss_function()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#processing_forecasts.multi_objective_optimization.find_best_weights"><code class="docutils literal notranslate"><span class="pre">find_best_weights()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/scripts/furo.js"></script>
+    </body>
+</html>

@@ -1,0 +1,666 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="#" /><link rel="search" title="Search" href="search.html" />
+
+    <!-- Generated with Sphinx 7.0.1 and Furo 2023.05.20 --><title>Index - ts_forecaster 0.1.0 documentation</title>
+<link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=e6660623a769aa55fea372102b9bf3151b292993" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">ts_forecaster 0.1.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  
+  <span class="sidebar-brand-text">ts_forecaster 0.1.0 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Documentation:</span></p>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="src.html">src package</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of src package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="src.models.html">Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src.processing_forecasts.html">Processing forecasts</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          
+<section class="genindex-section">
+  <h1 id="index">Index</h1>
+  <div class="genindex-jumpbox"><a href="#B"><strong>B</strong></a> | <a href="#C"><strong>C</strong></a> | <a href="#D"><strong>D</strong></a> | <a href="#E"><strong>E</strong></a> | <a href="#F"><strong>F</strong></a> | <a href="#G"><strong>G</strong></a> | <a href="#H"><strong>H</strong></a> | <a href="#L"><strong>L</strong></a> | <a href="#M"><strong>M</strong></a> | <a href="#O"><strong>O</strong></a> | <a href="#P"><strong>P</strong></a> | <a href="#R"><strong>R</strong></a> | <a href="#S"><strong>S</strong></a> | <a href="#T"><strong>T</strong></a> | <a href="#V"><strong>V</strong></a> | <a href="#W"><strong>W</strong></a> | <a href="#X"><strong>X</strong></a></div>
+</section>
+<section id="B" class="genindex-section">
+  <h2>B</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.processing_forecasts.html#processing_forecasts.ensemble_learning.ensemble_learning.bagging">bagging() (processing_forecasts.ensemble_learning.ensemble_learning method)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.processing_forecasts.html#processing_forecasts.ensemble_learning.ensemble_learning.boosting">boosting() (processing_forecasts.ensemble_learning.ensemble_learning method)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="C" class="genindex-section">
+  <h2>C</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.processing_forecasts.html#processing_forecasts.metrics.Evaluate.calculate_overlay_percentages_multi">calculate_overlay_percentages_multi() (processing_forecasts.metrics.Evaluate method)</a>
+</li>
+        <li><a href="src.models.html#models.cnn.cnn">cnn (class in models.cnn)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.models.html#models.cnn.cnn.create_model">create_model() (models.cnn.cnn method)</a>
+
+        <ul>
+          <li><a href="src.models.html#models.gru.gru.create_model">(models.gru.gru method)</a>
+</li>
+          <li><a href="src.models.html#models.lstm.lstm.create_model">(models.lstm.lstm method)</a>
+</li>
+        </ul></li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="D" class="genindex-section">
+  <h2>D</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.models.html#models.lstm.lstm.df">df (models.lstm.lstm attribute)</a>
+
+        <ul>
+          <li><a href="src.models.html#models.XGBoost.xgboost.df">(models.XGBoost.xgboost attribute)</a>
+</li>
+          <li><a href="src.processing_forecasts.html#processing_forecasts.multi_objective_optimization.MyProblem.df">(processing_forecasts.multi_objective_optimization.MyProblem attribute)</a>
+</li>
+        </ul></li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="E" class="genindex-section">
+  <h2>E</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.processing_forecasts.html#processing_forecasts.ensemble_learning.ensemble_learning">ensemble_learning (class in processing_forecasts.ensemble_learning)</a>
+</li>
+        <li><a href="src.processing_forecasts.html#processing_forecasts.metrics.Evaluate">Evaluate (class in processing_forecasts.metrics)</a>
+</li>
+        <li><a href="src.models.html#models.sarima.sarima.evaluate">evaluate() (models.sarima.sarima method)</a>
+
+        <ul>
+          <li><a href="src.processing_forecasts.html#id0">(processing_forecasts.metrics.Evaluate method)</a>, <a href="src.processing_forecasts.html#processing_forecasts.metrics.Evaluate.evaluate">[1]</a>
+</li>
+          <li><a href="src.processing_forecasts.html#processing_forecasts.multi_objective_optimization.MyProblem.evaluate">(processing_forecasts.multi_objective_optimization.MyProblem method)</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.models.html#models.var.var.extract_var_equations">extract_var_equations() (models.var.var method)</a>
+</li>
+        <li><a href="src.models.html#models.var.var.extract_var_results">extract_var_results() (models.var.var method)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="F" class="genindex-section">
+  <h2>F</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.processing_forecasts.html#processing_forecasts.multi_objective_optimization.find_best_weights">find_best_weights() (in module processing_forecasts.multi_objective_optimization)</a>
+</li>
+        <li><a href="src.models.html#models.cnn.cnn.fit">fit() (models.cnn.cnn method)</a>
+
+        <ul>
+          <li><a href="src.models.html#models.gru.gru.fit">(models.gru.gru method)</a>
+</li>
+          <li><a href="src.models.html#models.lstm.lstm.fit">(models.lstm.lstm method)</a>
+</li>
+          <li><a href="src.models.html#models.sarima.sarima.fit">(models.sarima.sarima method)</a>
+</li>
+          <li><a href="src.models.html#models.var.var.fit">(models.var.var method)</a>
+</li>
+          <li><a href="src.models.html#models.XGBoost.xgboost.fit">(models.XGBoost.xgboost method)</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.models.html#models.cnn.cnn.forecast">forecast() (models.cnn.cnn method)</a>
+
+        <ul>
+          <li><a href="src.models.html#models.gru.gru.forecast">(models.gru.gru method)</a>
+</li>
+          <li><a href="src.models.html#models.lstm.lstm.forecast">(models.lstm.lstm method)</a>
+</li>
+          <li><a href="src.models.html#models.var.var.forecast">(models.var.var method)</a>
+</li>
+        </ul></li>
+        <li><a href="src.processing_forecasts.html#processing_forecasts.multi_objective_optimization.MyProblem.forecasts">forecasts (processing_forecasts.multi_objective_optimization.MyProblem attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="G" class="genindex-section">
+  <h2>G</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.models.html#models.var.var.get_lag_series">get_lag_series() (models.var.var method)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.models.html#models.gru.gru">gru (class in models.gru)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="H" class="genindex-section">
+  <h2>H</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.models.html#models.sarima.sarima.help">help() (models.sarima.sarima method)</a>
+
+        <ul>
+          <li><a href="src.models.html#models.XGBoost.xgboost.help">(models.XGBoost.xgboost method)</a>
+</li>
+        </ul></li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="L" class="genindex-section">
+  <h2>L</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.models.html#models.lstm.lstm">lstm (class in models.lstm)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="M" class="genindex-section">
+  <h2>M</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.processing_forecasts.html#id1">mae() (processing_forecasts.metrics.Evaluate method)</a>, <a href="src.processing_forecasts.html#processing_forecasts.metrics.Evaluate.mae">[1]</a>
+</li>
+        <li><a href="src.processing_forecasts.html#processing_forecasts.multi_objective_optimization.MyProblem.mae_loss_function">mae_loss_function() (processing_forecasts.multi_objective_optimization.MyProblem method)</a>
+</li>
+        <li><a href="src.processing_forecasts.html#id2">mape() (processing_forecasts.metrics.Evaluate method)</a>, <a href="src.processing_forecasts.html#processing_forecasts.metrics.Evaluate.mape">[1]</a>
+</li>
+        <li><a href="src.processing_forecasts.html#id3">mase() (processing_forecasts.metrics.Evaluate method)</a>, <a href="src.processing_forecasts.html#processing_forecasts.metrics.Evaluate.mase">[1]</a>
+</li>
+        <li>
+    models.cnn
+
+        <ul>
+          <li><a href="src.models.html#module-models.cnn">module</a>
+</li>
+        </ul></li>
+        <li>
+    models.gru
+
+        <ul>
+          <li><a href="src.models.html#module-models.gru">module</a>
+</li>
+        </ul></li>
+        <li>
+    models.lstm
+
+        <ul>
+          <li><a href="src.models.html#module-models.lstm">module</a>
+</li>
+        </ul></li>
+        <li>
+    models.sarima
+
+        <ul>
+          <li><a href="src.models.html#module-models.sarima">module</a>
+</li>
+        </ul></li>
+        <li>
+    models.var
+
+        <ul>
+          <li><a href="src.models.html#module-models.var">module</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li>
+    models.XGBoost
+
+        <ul>
+          <li><a href="src.models.html#module-models.XGBoost">module</a>
+</li>
+        </ul></li>
+        <li>
+    module
+
+        <ul>
+          <li><a href="src.models.html#module-models.cnn">models.cnn</a>
+</li>
+          <li><a href="src.models.html#module-models.gru">models.gru</a>
+</li>
+          <li><a href="src.models.html#module-models.lstm">models.lstm</a>
+</li>
+          <li><a href="src.models.html#module-models.sarima">models.sarima</a>
+</li>
+          <li><a href="src.models.html#module-models.var">models.var</a>
+</li>
+          <li><a href="src.models.html#module-models.XGBoost">models.XGBoost</a>
+</li>
+          <li><a href="src.processing_forecasts.html#module-processing_forecasts.ensemble_learning">processing_forecasts.ensemble_learning</a>
+</li>
+          <li><a href="src.processing_forecasts.html#module-processing_forecasts.metrics">processing_forecasts.metrics</a>
+</li>
+          <li><a href="src.processing_forecasts.html#module-processing_forecasts.multi_objective_optimization">processing_forecasts.multi_objective_optimization</a>
+</li>
+          <li><a href="src.html#module-src">src</a>
+</li>
+        </ul></li>
+        <li><a href="src.processing_forecasts.html#processing_forecasts.multi_objective_optimization.MyProblem">MyProblem (class in processing_forecasts.multi_objective_optimization)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="O" class="genindex-section">
+  <h2>O</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.processing_forecasts.html#processing_forecasts.metrics.Evaluate.overlay_dx">overlay_dx() (processing_forecasts.metrics.Evaluate method)</a>
+</li>
+        <li><a href="src.processing_forecasts.html#processing_forecasts.multi_objective_optimization.MyProblem.overlay_dx_gain_function">overlay_dx_gain_function() (processing_forecasts.multi_objective_optimization.MyProblem method)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.processing_forecasts.html#processing_forecasts.metrics.Evaluate.overlay_dx_moo">overlay_dx_moo() (processing_forecasts.metrics.Evaluate method)</a>
+</li>
+        <li><a href="src.processing_forecasts.html#id4">overlay_dx_visualisation_df() (processing_forecasts.metrics.Evaluate method)</a>, <a href="src.processing_forecasts.html#processing_forecasts.metrics.Evaluate.overlay_dx_visualisation_df">[1]</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="P" class="genindex-section">
+  <h2>P</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.models.html#models.cnn.cnn.plot_learning_curves">plot_learning_curves() (models.cnn.cnn method)</a>
+
+        <ul>
+          <li><a href="src.models.html#models.gru.gru.plot_learning_curves">(models.gru.gru method)</a>
+</li>
+          <li><a href="src.models.html#models.lstm.lstm.plot_learning_curves">(models.lstm.lstm method)</a>
+</li>
+        </ul></li>
+        <li><a href="src.models.html#models.lstm.lstm.plot_learning_curves_bool">plot_learning_curves_bool (models.lstm.lstm attribute)</a>
+</li>
+        <li><a href="src.models.html#models.cnn.cnn.plot_predictions">plot_predictions() (models.cnn.cnn method)</a>
+
+        <ul>
+          <li><a href="src.models.html#models.gru.gru.plot_predictions">(models.gru.gru method)</a>
+</li>
+          <li><a href="src.models.html#models.lstm.lstm.plot_predictions">(models.lstm.lstm method)</a>
+</li>
+          <li><a href="src.models.html#models.var.var.plot_predictions">(models.var.var method)</a>
+</li>
+          <li><a href="src.models.html#models.XGBoost.xgboost.plot_predictions">(models.XGBoost.xgboost method)</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.models.html#models.sarima.sarima.plot_results">plot_results() (models.sarima.sarima method)</a>
+</li>
+        <li>
+    processing_forecasts.ensemble_learning
+
+        <ul>
+          <li><a href="src.processing_forecasts.html#module-processing_forecasts.ensemble_learning">module</a>
+</li>
+        </ul></li>
+        <li>
+    processing_forecasts.metrics
+
+        <ul>
+          <li><a href="src.processing_forecasts.html#module-processing_forecasts.metrics">module</a>
+</li>
+        </ul></li>
+        <li>
+    processing_forecasts.multi_objective_optimization
+
+        <ul>
+          <li><a href="src.processing_forecasts.html#module-processing_forecasts.multi_objective_optimization">module</a>
+</li>
+        </ul></li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="R" class="genindex-section">
+  <h2>R</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.processing_forecasts.html#id5">rmse() (processing_forecasts.metrics.Evaluate method)</a>, <a href="src.processing_forecasts.html#processing_forecasts.metrics.Evaluate.rmse">[1]</a>
+</li>
+        <li><a href="src.processing_forecasts.html#processing_forecasts.multi_objective_optimization.MyProblem.rmse_loss_function">rmse_loss_function() (processing_forecasts.multi_objective_optimization.MyProblem method)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.models.html#models.sarima.sarima.run">run() (models.sarima.sarima method)</a>
+</li>
+        <li><a href="src.models.html#models.var.var.run_var">run_var() (models.var.var method)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="S" class="genindex-section">
+  <h2>S</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.models.html#models.sarima.sarima">sarima (class in models.sarima)</a>
+</li>
+        <li><a href="src.models.html#models.XGBoost.xgboost.series_to_supervised">series_to_supervised() (models.XGBoost.xgboost method)</a>
+</li>
+        <li><a href="src.processing_forecasts.html#id6">spikes_covering() (processing_forecasts.metrics.Evaluate method)</a>, <a href="src.processing_forecasts.html#processing_forecasts.metrics.Evaluate.spikes_covering">[1]</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li>
+    src
+
+        <ul>
+          <li><a href="src.html#module-src">module</a>
+</li>
+        </ul></li>
+        <li><a href="src.processing_forecasts.html#processing_forecasts.ensemble_learning.ensemble_learning.stacking">stacking() (processing_forecasts.ensemble_learning.ensemble_learning method)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="T" class="genindex-section">
+  <h2>T</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.models.html#models.lstm.lstm.target">target (models.lstm.lstm attribute)</a>
+
+        <ul>
+          <li><a href="src.models.html#models.XGBoost.xgboost.target">(models.XGBoost.xgboost attribute)</a>
+</li>
+        </ul></li>
+        <li><a href="src.processing_forecasts.html#processing_forecasts.multi_objective_optimization.MyProblem.target_values">target_values (processing_forecasts.multi_objective_optimization.MyProblem attribute)</a>
+</li>
+        <li><a href="src.processing_forecasts.html#processing_forecasts.metrics.TestEvaluate.test_evaluate">test_evaluate() (processing_forecasts.metrics.TestEvaluate method)</a>
+</li>
+        <li><a href="src.models.html#models.lstm.lstm.test_size">test_size (models.lstm.lstm attribute)</a>
+
+        <ul>
+          <li><a href="src.models.html#models.XGBoost.xgboost.test_size">(models.XGBoost.xgboost attribute)</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.processing_forecasts.html#processing_forecasts.metrics.TestEvaluate">TestEvaluate (class in processing_forecasts.metrics)</a>
+</li>
+        <li><a href="src.models.html#models.cnn.cnn.train_test_sets">train_test_sets() (models.cnn.cnn method)</a>
+
+        <ul>
+          <li><a href="src.models.html#models.gru.gru.train_test_sets">(models.gru.gru method)</a>
+</li>
+          <li><a href="src.models.html#models.lstm.lstm.train_test_sets">(models.lstm.lstm method)</a>
+</li>
+        </ul></li>
+        <li><a href="src.models.html#models.XGBoost.xgboost.train_test_split">train_test_split() (models.XGBoost.xgboost method)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="V" class="genindex-section">
+  <h2>V</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.models.html#models.var.var">var (class in models.var)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="W" class="genindex-section">
+  <h2>W</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.models.html#models.XGBoost.xgboost.walk_forward_validation">walk_forward_validation() (models.XGBoost.xgboost method)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="X" class="genindex-section">
+  <h2>X</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.models.html#models.XGBoost.xgboost">xgboost (class in models.XGBoost)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.models.html#models.XGBoost.xgboost.xgboost_forecast">xgboost_forecast() (models.XGBoost.xgboost method)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2023, Thomas Jaillon / SMILE
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/scripts/furo.js"></script>
+    </body>
+</html>

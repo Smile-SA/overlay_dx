@@ -1,0 +1,811 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Processing forecasts" href="src.processing_forecasts.html" /><link rel="prev" title="src package" href="src.html" />
+
+    <!-- Generated with Sphinx 7.0.1 and Furo 2023.05.20 -->
+        <title>Models - ts_forecaster 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=e6660623a769aa55fea372102b9bf3151b292993" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">ts_forecaster 0.1.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  
+  <span class="sidebar-brand-text">ts_forecaster 0.1.0 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Documentation:</span></p>
+<ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="src.html">src package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of src package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src.processing_forecasts.html">Processing forecasts</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="models">
+<h1>Models<a class="headerlink" href="#models" title="Permalink to this heading">#</a></h1>
+<section id="module-models.XGBoost">
+<span id="xgboost"></span><h2>XGBoost<a class="headerlink" href="#module-models.XGBoost" title="Permalink to this heading">#</a></h2>
+<p>XGBoost is a decision-tree-based ensemble Machine Learning algorithm that uses a gradient boosting framework.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="models.XGBoost.xgboost">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">models.XGBoost.</span></span><span class="sig-name descname"><span class="pre">xgboost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/XGBoost.html#xgboost"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.XGBoost.xgboost" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>class to create the xgboost model</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.XGBoost.xgboost.df">
+<span class="sig-name descname"><span class="pre">df</span></span><a class="headerlink" href="#models.XGBoost.xgboost.df" title="Permalink to this definition">#</a></dt>
+<dd><p>pandas dataframe with the time series as columns</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas dataframe</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.XGBoost.xgboost.target">
+<span class="sig-name descname"><span class="pre">target</span></span><a class="headerlink" href="#models.XGBoost.xgboost.target" title="Permalink to this definition">#</a></dt>
+<dd><p>name of target column to forecast</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.XGBoost.xgboost.test_size">
+<span class="sig-name descname"><span class="pre">test_size</span></span><a class="headerlink" href="#models.XGBoost.xgboost.test_size" title="Permalink to this definition">#</a></dt>
+<dd><p>the percentage size of the test set from 0 to 1</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Import and usage:</p>
+<blockquote>
+<div><p>from src.models.xgboost import xgboost</p>
+<p>xgboost_model = xgboost(df, target, test_size)</p>
+<p>pred, test, train = xgboost_model.fit()</p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="models.XGBoost.xgboost.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/XGBoost.html#xgboost.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.XGBoost.xgboost.fit" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.XGBoost.xgboost.help">
+<span class="sig-name descname"><span class="pre">help</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/XGBoost.html#xgboost.help"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.XGBoost.xgboost.help" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.XGBoost.xgboost.plot_predictions">
+<span class="sig-name descname"><span class="pre">plot_predictions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predictions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/XGBoost.html#xgboost.plot_predictions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.XGBoost.xgboost.plot_predictions" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.XGBoost.xgboost.series_to_supervised">
+<span class="sig-name descname"><span class="pre">series_to_supervised</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_in</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropnan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/XGBoost.html#xgboost.series_to_supervised"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.XGBoost.xgboost.series_to_supervised" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.XGBoost.xgboost.train_test_split">
+<span class="sig-name descname"><span class="pre">train_test_split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_test</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/XGBoost.html#xgboost.train_test_split"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.XGBoost.xgboost.train_test_split" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.XGBoost.xgboost.walk_forward_validation">
+<span class="sig-name descname"><span class="pre">walk_forward_validation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_test</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/XGBoost.html#xgboost.walk_forward_validation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.XGBoost.xgboost.walk_forward_validation" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.XGBoost.xgboost.xgboost_forecast">
+<span class="sig-name descname"><span class="pre">xgboost_forecast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">testX</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/XGBoost.html#xgboost.xgboost_forecast"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.XGBoost.xgboost.xgboost_forecast" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-models.cnn">
+<span id="cnn"></span><h2>CNN<a class="headerlink" href="#module-models.cnn" title="Permalink to this heading">#</a></h2>
+<p>Convolutional Neural Network, CNN is a type of neural network that can be used for time series forecasting by using convolutional layers.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="models.cnn.cnn">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">models.cnn.</span></span><span class="sig-name descname"><span class="pre">cnn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_learning_curves_bool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/cnn.html#cnn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.cnn.cnn" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class is used to forecast time series data using Convolutional Neural Network.</p>
+<p>Attributes :</p>
+<blockquote>
+<div><p>df (pandas dataframe) : pandas dataframe with the time series as columns</p>
+<p>target (str) : name of target column to forecast</p>
+<p>test_size (float) : the percentage size of the test set from 0 to 1</p>
+<p>plot_learning_curves_bool (bool) : boolean to plot learning curves or not, default is False</p>
+</div></blockquote>
+<p>Import and usage:</p>
+<blockquote>
+<div><p>from src.models.cnn import cnn</p>
+<p>cnn_model = cnn(df, target, test_size, plot_learning_curves_bool)</p>
+<p>pred, test, train = cnn_model.fit()</p>
+<p>forecast = cnn_model.forecast(new_data)</p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="models.cnn.cnn.create_model">
+<span class="sig-name descname"><span class="pre">create_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">custom_model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/cnn.html#cnn.create_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.cnn.cnn.create_model" title="Permalink to this definition">#</a></dt>
+<dd><p>Create the CNN model.</p>
+<p>By default, the model has 2 convolutional layers, 1 max pooling layer, 1 flatten layer, 2 dense layers and 1 output layer.</p>
+<p>The model is compiled with the adam optimizer and the mean squared error loss function.</p>
+<p>However, you can define your own architecture by providing your own Sequential model architecture from keras.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.cnn.cnn.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/cnn.html#cnn.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.cnn.cnn.fit" title="Permalink to this definition">#</a></dt>
+<dd><p>This function is used to train, test and forecast time series data using cnn neural networks.</p>
+<p>Returns :</p>
+<p>predictions (pandas series) : pandas series of the predictions</p>
+<p>test (pandas series) : pandas series of the test values</p>
+<p>train (pandas series) : pandas series of the train values</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.cnn.cnn.forecast">
+<span class="sig-name descname"><span class="pre">forecast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/cnn.html#cnn.forecast"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.cnn.cnn.forecast" title="Permalink to this definition">#</a></dt>
+<dd><p>This function is used to forecast time series data using CNN neural networks on new_data.</p>
+<p>Parameters :</p>
+<p>new_data (numpy array) : numpy array of the new data to forecast</p>
+<p>Returns :</p>
+<p>predictions (numpy array) : numpy array of the predictions</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.cnn.cnn.plot_learning_curves">
+<span class="sig-name descname"><span class="pre">plot_learning_curves</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">history</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/cnn.html#cnn.plot_learning_curves"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.cnn.cnn.plot_learning_curves" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.cnn.cnn.plot_predictions">
+<span class="sig-name descname"><span class="pre">plot_predictions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predictions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/cnn.html#cnn.plot_predictions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.cnn.cnn.plot_predictions" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.cnn.cnn.train_test_sets">
+<span class="sig-name descname"><span class="pre">train_test_sets</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/cnn.html#cnn.train_test_sets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.cnn.cnn.train_test_sets" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-models.gru">
+<span id="gru"></span><h2>GRU<a class="headerlink" href="#module-models.gru" title="Permalink to this heading">#</a></h2>
+<p>Gated Recurrent Unit, is a simplified version of LSTM that is also used for time series forecasting.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="models.gru.gru">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">models.gru.</span></span><span class="sig-name descname"><span class="pre">gru</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_learning_curves_bool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epochs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/gru.html#gru"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.gru.gru" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class is used to forecast time series data using Gated Recurrent Unit neural network.</p>
+<p>Attributes:</p>
+<p>df (pandas dataframe): pandas dataframe with the time series as columns</p>
+<p>target (str): name of target column to forecast</p>
+<p>test_size (float): the percentage size of the test set from 0 to 1</p>
+<p>plot_learning_curves_bool (bool): boolean to plot learning curves or not, default is False</p>
+<p>Import and usage :</p>
+<p>from src.models.gru import gru</p>
+<p>gru_model = gru(df, target, test_size, plot_learning_curves_bool)</p>
+<p>pred, test, train = gru_model.fit()</p>
+<p>forecast = gru_model.forecast(new_data)</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="models.gru.gru.create_model">
+<span class="sig-name descname"><span class="pre">create_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">custom_model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/gru.html#gru.create_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.gru.gru.create_model" title="Permalink to this definition">#</a></dt>
+<dd><p>Create the GRU model.
+By default, the model is a sequential model with 3 GRU layers and 3 dense layers.
+The loss function is mean squared error and the optimizer is adam.
+However, you can define your own architecture by providing your own Sequential model architecture from keras.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.gru.gru.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/gru.html#gru.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.gru.gru.fit" title="Permalink to this definition">#</a></dt>
+<dd><p>This function is used to train, test and forecast time series data using gru neural networks.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.gru.gru.forecast">
+<span class="sig-name descname"><span class="pre">forecast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/gru.html#gru.forecast"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.gru.gru.forecast" title="Permalink to this definition">#</a></dt>
+<dd><p>This function is used to forecast time series data using GRU neural networks on new_data.</p>
+<p>Parameters:</p>
+<p>new_data (numpy array): The new data to forecast on. The shape of the array should be (n_samples, n_timesteps, n_features).</p>
+<p>Returns:</p>
+<p>predictions (numpy array): The predictions of the model on the new data. The shape of the array is (n_samples, 1).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.gru.gru.plot_learning_curves">
+<span class="sig-name descname"><span class="pre">plot_learning_curves</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">history</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/gru.html#gru.plot_learning_curves"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.gru.gru.plot_learning_curves" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.gru.gru.plot_predictions">
+<span class="sig-name descname"><span class="pre">plot_predictions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predictions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/gru.html#gru.plot_predictions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.gru.gru.plot_predictions" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.gru.gru.train_test_sets">
+<span class="sig-name descname"><span class="pre">train_test_sets</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/gru.html#gru.train_test_sets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.gru.gru.train_test_sets" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-models.lstm">
+<span id="lstm"></span><h2>LSTM<a class="headerlink" href="#module-models.lstm" title="Permalink to this heading">#</a></h2>
+<p>Long Short Term Memory, LSTM is a type of recurrent neural network (RNN) that can learn long-term dependencies between time steps of sequence data.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="models.lstm.lstm">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">models.lstm.</span></span><span class="sig-name descname"><span class="pre">lstm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_learning_curves_bool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epochs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/lstm.html#lstm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.lstm.lstm" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class is used to forecast time series data using Long Short Term Memory.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.lstm.lstm.df">
+<span class="sig-name descname"><span class="pre">df</span></span><a class="headerlink" href="#models.lstm.lstm.df" title="Permalink to this definition">#</a></dt>
+<dd><p>pandas dataframe with the time series as columns</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas dataframe</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.lstm.lstm.target">
+<span class="sig-name descname"><span class="pre">target</span></span><a class="headerlink" href="#models.lstm.lstm.target" title="Permalink to this definition">#</a></dt>
+<dd><p>name of target column to forecast</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.lstm.lstm.test_size">
+<span class="sig-name descname"><span class="pre">test_size</span></span><a class="headerlink" href="#models.lstm.lstm.test_size" title="Permalink to this definition">#</a></dt>
+<dd><p>the percentage size of the test set from 0 to 1</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.lstm.lstm.plot_learning_curves_bool">
+<span class="sig-name descname"><span class="pre">plot_learning_curves_bool</span></span><a class="headerlink" href="#models.lstm.lstm.plot_learning_curves_bool" title="Permalink to this definition">#</a></dt>
+<dd><p>boolean to plot learning curves or not, default is False</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Import and usage:</p>
+<blockquote>
+<div><p>from src.models.lstm import lstm</p>
+<p>lstm_model = lstm(df, target, test_size, plot_learning_curves_bool)</p>
+<p>predictions, test, train = lstm_model.fit()</p>
+<p>forecast = lstm_model.forecast(new_data)</p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="models.lstm.lstm.create_model">
+<span class="sig-name descname"><span class="pre">create_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">custom_model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/lstm.html#lstm.create_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.lstm.lstm.create_model" title="Permalink to this definition">#</a></dt>
+<dd><p>This method is used to create the LSTM model.
+By default, the model has 3 LSTM layers and 2 Dense layers.
+However, you can define your own architecture by calling this method and providing your own Sequential model architecture from keras.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.lstm.lstm.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/lstm.html#lstm.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.lstm.lstm.fit" title="Permalink to this definition">#</a></dt>
+<dd><p>This method is used to train, test and forecast time series data using LSTM neural networks.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.lstm.lstm.forecast">
+<span class="sig-name descname"><span class="pre">forecast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/lstm.html#lstm.forecast"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.lstm.lstm.forecast" title="Permalink to this definition">#</a></dt>
+<dd><p>This method is used to forecast new time series data using the trained LSTM model</p>
+<p>Parameters:</p>
+<p>new_data: (Numpy array) The new input data to be forecasted.</p>
+<p>Returns:</p>
+<p>predictions:  (Numpy array) The forecasted values.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.lstm.lstm.plot_learning_curves">
+<span class="sig-name descname"><span class="pre">plot_learning_curves</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">history</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/lstm.html#lstm.plot_learning_curves"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.lstm.lstm.plot_learning_curves" title="Permalink to this definition">#</a></dt>
+<dd><p>This function is used to plot the learning curves of the neural network.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.lstm.lstm.plot_predictions">
+<span class="sig-name descname"><span class="pre">plot_predictions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predictions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/lstm.html#lstm.plot_predictions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.lstm.lstm.plot_predictions" title="Permalink to this definition">#</a></dt>
+<dd><p>This function is used to plot the predictions vs the actual train and test values.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.lstm.lstm.train_test_sets">
+<span class="sig-name descname"><span class="pre">train_test_sets</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/lstm.html#lstm.train_test_sets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.lstm.lstm.train_test_sets" title="Permalink to this definition">#</a></dt>
+<dd><p>This function is used to split the data into train and test sets.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-models.sarima">
+<span id="sarima"></span><h2>SARIMA<a class="headerlink" href="#module-models.sarima" title="Permalink to this heading">#</a></h2>
+<p>Seasonal Auto Regressive Integrated Mooving Average, SRIMA is an extension of ARIMA that supports the direct modeling of the seasonal component of the series.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="models.sarima.sarima">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">models.sarima.</span></span><span class="sig-name descname"><span class="pre">sarima</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time_series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_size_prct</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/sarima.html#sarima"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.sarima.sarima" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class is implementing the forecasting of the time series using the SARIMA model</p>
+<p>Parameters:</p>
+<p>time_series (pandas series): time series to forecast</p>
+<p>target (str): name of target column to forecast</p>
+<p>test_size_prct (float): the percentage size of the test set from 0 to 1</p>
+<p>p (int): order of the AR part of the model</p>
+<p>d (int): order of the I part of the model</p>
+<p>q (int): order of the MA part of the model</p>
+<p>P (int): order of the seasonal AR part of the model</p>
+<p>D (int): order of the seasonal I part of the model</p>
+<p>Q (int): order of the seasonal MA part of the model</p>
+<p>m (int): number of time steps for a seasonal period</p>
+<p>Import and usage:</p>
+<p>from src.models.sarima import sarima</p>
+<p>sarima_model = sarima(time_series, target, test_size_prct, p, d, q, P, D, Q, m)</p>
+<p>forecast, test, model_fit = sarima_model.fit()</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="models.sarima.sarima.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predictions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/sarima.html#sarima.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.sarima.sarima.evaluate" title="Permalink to this definition">#</a></dt>
+<dd><p>Evaluate the SARIMA model using the mean absolute error.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.sarima.sarima.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/sarima.html#sarima.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.sarima.sarima.fit" title="Permalink to this definition">#</a></dt>
+<dd><p>Fit the SARIMA model to the time series.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.sarima.sarima.help">
+<span class="sig-name descname"><span class="pre">help</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/sarima.html#sarima.help"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.sarima.sarima.help" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.sarima.sarima.plot_results">
+<span class="sig-name descname"><span class="pre">plot_results</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predictions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_fit</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/sarima.html#sarima.plot_results"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.sarima.sarima.plot_results" title="Permalink to this definition">#</a></dt>
+<dd><p>Plot the results of the SARIMA model.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.sarima.sarima.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/sarima.html#sarima.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.sarima.sarima.run" title="Permalink to this definition">#</a></dt>
+<dd><p>Run the SARIMA model.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-models.var">
+<span id="var"></span><h2>VAR<a class="headerlink" href="#module-models.var" title="Permalink to this heading">#</a></h2>
+<p>Vector Auto Regression, VAR is a multivariate forecasting algorithm that is used when two or more time series influence each other.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="models.var.var">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">models.var.</span></span><span class="sig-name descname"><span class="pre">var</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_lag</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/var.html#var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.var.var" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class is used to forecast and model time series data using VAR models.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pandas dataframe</em>) – pandas dataframe with the time series as columns</p></li>
+<li><p><strong>target</strong> (<em>str</em>) – name of target column to forecast</p></li>
+<li><p><strong>test_size</strong> (<em>float</em>) – the percentage size of the test set from 0 to 1</p></li>
+<li><p><strong>max_lag</strong> (<em>int</em>) – the maximum number of lags to use in the VAR model</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a dataframe with the original data and the modelled data in a new column with the name of the target + “_simulated”</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dataframe</p>
+</dd>
+</dl>
+<p>remark: the VAR model is not a forecasting model, it is a modelling tool. The VAR model is used to model the time series and then the model is used to forecast the time series.</p>
+<p>The VAR model is a multivariate model, it uses all the columns of the dataframe to model the target column.</p>
+<p>In fact with this implementation the var modelling is applied on all columns of the dataframe from the others.</p>
+<p>Import and usage:</p>
+<blockquote>
+<div><p>from src.models.var import var</p>
+<p>var_model = var(df, target, test_size, max_lag)</p>
+<p>forecast, test, train = var_model.fit()</p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="models.var.var.extract_var_equations">
+<span class="sig-name descname"><span class="pre">extract_var_equations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">results_params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/var.html#var.extract_var_equations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.var.var.extract_var_equations" title="Permalink to this definition">#</a></dt>
+<dd><p>Extract the equations</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.var.var.extract_var_results">
+<span class="sig-name descname"><span class="pre">extract_var_results</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/var.html#var.extract_var_results"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.var.var.extract_var_results" title="Permalink to this definition">#</a></dt>
+<dd><p>VAR results analysis and selection (statistical test)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.var.var.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/var.html#var.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.var.var.fit" title="Permalink to this definition">#</a></dt>
+<dd><p>var main function</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.var.var.forecast">
+<span class="sig-name descname"><span class="pre">forecast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/var.html#var.forecast"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.var.var.forecast" title="Permalink to this definition">#</a></dt>
+<dd><p>forecast function: use the VAR model equation to forecast the time series</p>
+<p>Args:
+new_data (pandas dataframe): dataframe with the same columns as the training data
+/!don’t forget to add the max_lag number of rows before the first row of the new data that you want to forecast since we use the lagged values to forecast.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.var.var.get_lag_series">
+<span class="sig-name descname"><span class="pre">get_lag_series</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">col</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">results_params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/var.html#var.get_lag_series"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.var.var.get_lag_series" title="Permalink to this definition">#</a></dt>
+<dd><p>This function returns an array from the VAR results with 3 elements:
+name: name of the serie
+lag: delay
+col: the serie that we model</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.var.var.plot_predictions">
+<span class="sig-name descname"><span class="pre">plot_predictions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predictions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/var.html#var.plot_predictions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.var.var.plot_predictions" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.var.var.run_var">
+<span class="sig-name descname"><span class="pre">run_var</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_lag</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/var.html#var.run_var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.var.var.run_var" title="Permalink to this definition">#</a></dt>
+<dd><p>Initialise and run VAR</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="src.processing_forecasts.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Processing forecasts</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="src.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">src package</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2023, Thomas Jaillon / SMILE
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Models</a><ul>
+<li><a class="reference internal" href="#module-models.XGBoost">XGBoost</a><ul>
+<li><a class="reference internal" href="#models.XGBoost.xgboost"><code class="docutils literal notranslate"><span class="pre">xgboost</span></code></a><ul>
+<li><a class="reference internal" href="#models.XGBoost.xgboost.df"><code class="docutils literal notranslate"><span class="pre">xgboost.df</span></code></a></li>
+<li><a class="reference internal" href="#models.XGBoost.xgboost.target"><code class="docutils literal notranslate"><span class="pre">xgboost.target</span></code></a></li>
+<li><a class="reference internal" href="#models.XGBoost.xgboost.test_size"><code class="docutils literal notranslate"><span class="pre">xgboost.test_size</span></code></a></li>
+<li><a class="reference internal" href="#models.XGBoost.xgboost.fit"><code class="docutils literal notranslate"><span class="pre">xgboost.fit()</span></code></a></li>
+<li><a class="reference internal" href="#models.XGBoost.xgboost.help"><code class="docutils literal notranslate"><span class="pre">xgboost.help()</span></code></a></li>
+<li><a class="reference internal" href="#models.XGBoost.xgboost.plot_predictions"><code class="docutils literal notranslate"><span class="pre">xgboost.plot_predictions()</span></code></a></li>
+<li><a class="reference internal" href="#models.XGBoost.xgboost.series_to_supervised"><code class="docutils literal notranslate"><span class="pre">xgboost.series_to_supervised()</span></code></a></li>
+<li><a class="reference internal" href="#models.XGBoost.xgboost.train_test_split"><code class="docutils literal notranslate"><span class="pre">xgboost.train_test_split()</span></code></a></li>
+<li><a class="reference internal" href="#models.XGBoost.xgboost.walk_forward_validation"><code class="docutils literal notranslate"><span class="pre">xgboost.walk_forward_validation()</span></code></a></li>
+<li><a class="reference internal" href="#models.XGBoost.xgboost.xgboost_forecast"><code class="docutils literal notranslate"><span class="pre">xgboost.xgboost_forecast()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-models.cnn">CNN</a><ul>
+<li><a class="reference internal" href="#models.cnn.cnn"><code class="docutils literal notranslate"><span class="pre">cnn</span></code></a><ul>
+<li><a class="reference internal" href="#models.cnn.cnn.create_model"><code class="docutils literal notranslate"><span class="pre">cnn.create_model()</span></code></a></li>
+<li><a class="reference internal" href="#models.cnn.cnn.fit"><code class="docutils literal notranslate"><span class="pre">cnn.fit()</span></code></a></li>
+<li><a class="reference internal" href="#models.cnn.cnn.forecast"><code class="docutils literal notranslate"><span class="pre">cnn.forecast()</span></code></a></li>
+<li><a class="reference internal" href="#models.cnn.cnn.plot_learning_curves"><code class="docutils literal notranslate"><span class="pre">cnn.plot_learning_curves()</span></code></a></li>
+<li><a class="reference internal" href="#models.cnn.cnn.plot_predictions"><code class="docutils literal notranslate"><span class="pre">cnn.plot_predictions()</span></code></a></li>
+<li><a class="reference internal" href="#models.cnn.cnn.train_test_sets"><code class="docutils literal notranslate"><span class="pre">cnn.train_test_sets()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-models.gru">GRU</a><ul>
+<li><a class="reference internal" href="#models.gru.gru"><code class="docutils literal notranslate"><span class="pre">gru</span></code></a><ul>
+<li><a class="reference internal" href="#models.gru.gru.create_model"><code class="docutils literal notranslate"><span class="pre">gru.create_model()</span></code></a></li>
+<li><a class="reference internal" href="#models.gru.gru.fit"><code class="docutils literal notranslate"><span class="pre">gru.fit()</span></code></a></li>
+<li><a class="reference internal" href="#models.gru.gru.forecast"><code class="docutils literal notranslate"><span class="pre">gru.forecast()</span></code></a></li>
+<li><a class="reference internal" href="#models.gru.gru.plot_learning_curves"><code class="docutils literal notranslate"><span class="pre">gru.plot_learning_curves()</span></code></a></li>
+<li><a class="reference internal" href="#models.gru.gru.plot_predictions"><code class="docutils literal notranslate"><span class="pre">gru.plot_predictions()</span></code></a></li>
+<li><a class="reference internal" href="#models.gru.gru.train_test_sets"><code class="docutils literal notranslate"><span class="pre">gru.train_test_sets()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-models.lstm">LSTM</a><ul>
+<li><a class="reference internal" href="#models.lstm.lstm"><code class="docutils literal notranslate"><span class="pre">lstm</span></code></a><ul>
+<li><a class="reference internal" href="#models.lstm.lstm.df"><code class="docutils literal notranslate"><span class="pre">lstm.df</span></code></a></li>
+<li><a class="reference internal" href="#models.lstm.lstm.target"><code class="docutils literal notranslate"><span class="pre">lstm.target</span></code></a></li>
+<li><a class="reference internal" href="#models.lstm.lstm.test_size"><code class="docutils literal notranslate"><span class="pre">lstm.test_size</span></code></a></li>
+<li><a class="reference internal" href="#models.lstm.lstm.plot_learning_curves_bool"><code class="docutils literal notranslate"><span class="pre">lstm.plot_learning_curves_bool</span></code></a></li>
+<li><a class="reference internal" href="#models.lstm.lstm.create_model"><code class="docutils literal notranslate"><span class="pre">lstm.create_model()</span></code></a></li>
+<li><a class="reference internal" href="#models.lstm.lstm.fit"><code class="docutils literal notranslate"><span class="pre">lstm.fit()</span></code></a></li>
+<li><a class="reference internal" href="#models.lstm.lstm.forecast"><code class="docutils literal notranslate"><span class="pre">lstm.forecast()</span></code></a></li>
+<li><a class="reference internal" href="#models.lstm.lstm.plot_learning_curves"><code class="docutils literal notranslate"><span class="pre">lstm.plot_learning_curves()</span></code></a></li>
+<li><a class="reference internal" href="#models.lstm.lstm.plot_predictions"><code class="docutils literal notranslate"><span class="pre">lstm.plot_predictions()</span></code></a></li>
+<li><a class="reference internal" href="#models.lstm.lstm.train_test_sets"><code class="docutils literal notranslate"><span class="pre">lstm.train_test_sets()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-models.sarima">SARIMA</a><ul>
+<li><a class="reference internal" href="#models.sarima.sarima"><code class="docutils literal notranslate"><span class="pre">sarima</span></code></a><ul>
+<li><a class="reference internal" href="#models.sarima.sarima.evaluate"><code class="docutils literal notranslate"><span class="pre">sarima.evaluate()</span></code></a></li>
+<li><a class="reference internal" href="#models.sarima.sarima.fit"><code class="docutils literal notranslate"><span class="pre">sarima.fit()</span></code></a></li>
+<li><a class="reference internal" href="#models.sarima.sarima.help"><code class="docutils literal notranslate"><span class="pre">sarima.help()</span></code></a></li>
+<li><a class="reference internal" href="#models.sarima.sarima.plot_results"><code class="docutils literal notranslate"><span class="pre">sarima.plot_results()</span></code></a></li>
+<li><a class="reference internal" href="#models.sarima.sarima.run"><code class="docutils literal notranslate"><span class="pre">sarima.run()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-models.var">VAR</a><ul>
+<li><a class="reference internal" href="#models.var.var"><code class="docutils literal notranslate"><span class="pre">var</span></code></a><ul>
+<li><a class="reference internal" href="#models.var.var.extract_var_equations"><code class="docutils literal notranslate"><span class="pre">var.extract_var_equations()</span></code></a></li>
+<li><a class="reference internal" href="#models.var.var.extract_var_results"><code class="docutils literal notranslate"><span class="pre">var.extract_var_results()</span></code></a></li>
+<li><a class="reference internal" href="#models.var.var.fit"><code class="docutils literal notranslate"><span class="pre">var.fit()</span></code></a></li>
+<li><a class="reference internal" href="#models.var.var.forecast"><code class="docutils literal notranslate"><span class="pre">var.forecast()</span></code></a></li>
+<li><a class="reference internal" href="#models.var.var.get_lag_series"><code class="docutils literal notranslate"><span class="pre">var.get_lag_series()</span></code></a></li>
+<li><a class="reference internal" href="#models.var.var.plot_predictions"><code class="docutils literal notranslate"><span class="pre">var.plot_predictions()</span></code></a></li>
+<li><a class="reference internal" href="#models.var.var.run_var"><code class="docutils literal notranslate"><span class="pre">var.run_var()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/scripts/furo.js"></script>
+    </body>
+</html>

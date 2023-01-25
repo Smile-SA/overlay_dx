@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=61.0",
+            "matplotlib",
+            "numpy",
+            "pandas",
+            "protobuf",
+            "scikit-learn",
+            "seaborn",
+            "statsmodels",
+            "xgboost",
+            "tensorflow",
+            "keras",
+            "platypus-opt",
+            "scikit-learn"]
+build-backend = "setuptools.build_meta"
+
+[tool.poetry]
+name = "ts_forecaster_smile"
+version = "0.1.19"
+description = "ts_forecaster is a time series library designed to provide multiple forecasting approaches. It offers various models and algorithms for analyzing and predicting time series data as well as additional tools."
+authors = [
+    { name = "Smile R&D team", email = "rnd@smile.fr" },
+]
+
+[tool.poetry.dependencies]
+python = ">=3.8"

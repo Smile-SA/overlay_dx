@@ -1,0 +1,378 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
+
+    <!-- Generated with Sphinx 7.0.1 and Furo 2023.05.20 -->
+        <title>processing_forecasts.multi_objective_optimization - ts_forecaster 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=e6660623a769aa55fea372102b9bf3151b292993" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">ts_forecaster 0.1.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  
+  
+  <span class="sidebar-brand-text">ts_forecaster 0.1.0 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Documentation:</span></p>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../src.html">src package</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of src package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../src.models.html">Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../src.processing_forecasts.html">Processing forecasts</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <h1>Source code for processing_forecasts.multi_objective_optimization</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Multi objective Optimization can find the best weighted average in regard of multiple metrics to minimize and scores to maximize.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">platypus.problems</span> <span class="kn">import</span> <span class="n">Problem</span>
+<span class="kn">from</span> <span class="nn">platypus.algorithms</span> <span class="kn">import</span> <span class="n">NSGAII</span>
+<span class="kn">from</span> <span class="nn">platypus.types</span> <span class="kn">import</span> <span class="n">Real</span>
+<span class="kn">from</span> <span class="nn">platypus.core</span> <span class="kn">import</span> <span class="n">nondominated</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_absolute_error</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
+
+<span class="kn">from</span> <span class="nn">.metrics</span> <span class="kn">import</span> <span class="n">Evaluate</span>
+<span class="c1">#local testing</span>
+<span class="c1">#from metrics import Evaluate</span>
+
+<div class="viewcode-block" id="MyProblem"><a class="viewcode-back" href="../../src.processing_forecasts.html#processing_forecasts.multi_objective_optimization.MyProblem">[docs]</a><span class="k">class</span> <span class="nc">MyProblem</span><span class="p">(</span><span class="n">Problem</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;MyProblem: class to define the multi-objective optimization problem \n</span>
+<span class="sd">        Three objectives: \n</span>
+<span class="sd">            1. Minimize the MAE \n</span>
+<span class="sd">            2. Minimize the RMSE \n</span>
+<span class="sd">            3. Maximize the overlay_dx_score \n</span>
+<span class="sd">        Find the best weights for the weighted average forecast according to the three objectives. \n</span>
+
+<span class="sd">    how it works: https://platypus.readthedocs.io/en/latest/getting-started.html#defining-a-problem \n</span>
+
+<span class="sd">    Attributes: \n</span>
+<span class="sd">        df (pd.DataFrame): pandas dataframe with the forecasts and the target values \n</span>
+<span class="sd">        target_values (np.array): target values \n</span>
+<span class="sd">        forecasts (dict): dictionary of forecasts, keys are the approach names of the forecasts (str), values are the forecasts (np.array) \n</span>
+<span class="sd">    </span>
+<span class="sd">    Import and usage: \n</span>
+<span class="sd">        from src.processing_forecasts.multi_objective_optimization import find_best_weights \n</span>
+<span class="sd">        best_weights , best_result = find_best_weights(df, forecasts_cols, target_col, max_evaluations) \n</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">forecasts_cols</span><span class="p">,</span><span class="n">target_col</span><span class="p">,</span><span class="n">max_evaluations</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialise the class with the attributes&quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">forecasts_cols</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">forecasts_cols</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">types</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">Real</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">directions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">Problem</span><span class="o">.</span><span class="n">MINIMIZE</span>  <span class="c1"># minimize the loss</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">directions</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">Problem</span><span class="o">.</span><span class="n">MINIMIZE</span>  <span class="c1"># minimize the loss</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">directions</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">Problem</span><span class="o">.</span><span class="n">MAXIMIZE</span>  <span class="c1"># maximize the gains</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">constraints</span><span class="p">[:]</span> <span class="o">=</span> <span class="s2">&quot;==0&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_col</span> <span class="o">=</span> <span class="n">target_col</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">forecasts_cols</span> <span class="o">=</span> <span class="n">forecasts_cols</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_evaluations</span> <span class="o">=</span> <span class="n">max_evaluations</span>
+
+<div class="viewcode-block" id="MyProblem.evaluate"><a class="viewcode-back" href="../../src.processing_forecasts.html#processing_forecasts.multi_objective_optimization.MyProblem.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">solution</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Evaluate the solution&quot;&quot;&quot;</span>
+        <span class="n">variables</span> <span class="o">=</span> <span class="n">solution</span><span class="o">.</span><span class="n">variables</span>
+        <span class="n">loss_1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rmse_loss_function</span><span class="p">(</span><span class="n">variables</span><span class="p">)</span>
+        <span class="n">loss_2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mae_loss_function</span><span class="p">(</span><span class="n">variables</span><span class="p">)</span>
+        <span class="n">gain</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">overlay_dx_gain_function</span><span class="p">(</span><span class="n">variables</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;gain&quot;</span><span class="p">,</span><span class="n">gain</span><span class="p">)</span>
+        <span class="n">solution</span><span class="o">.</span><span class="n">objectives</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[</span><span class="n">loss_1</span><span class="p">,</span> <span class="n">loss_2</span><span class="p">,</span> <span class="n">gain</span><span class="p">]</span>
+        <span class="n">solution</span><span class="o">.</span><span class="n">constraints</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">sum</span><span class="p">(</span><span class="n">variables</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span></div>
+    
+<div class="viewcode-block" id="MyProblem.rmse_loss_function"><a class="viewcode-back" href="../../src.processing_forecasts.html#processing_forecasts.multi_objective_optimization.MyProblem.rmse_loss_function">[docs]</a>    <span class="k">def</span> <span class="nf">rmse_loss_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">weights</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the RMSE between the actual data and the weighted average forecast&quot;&quot;&quot;</span>
+        <span class="c1"># Compute the weighted average of the forecasts</span>
+        <span class="n">forecast</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">target_col</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">forecasts_cols</span><span class="p">]):</span>
+            <span class="n">forecast</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">*</span> <span class="n">weights</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="c1"># Compute the MAE between the actual data and the weighted average forecast</span>
+        <span class="n">rmse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">target_col</span><span class="p">],</span> <span class="n">forecast</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">rmse</span></div>
+    
+<div class="viewcode-block" id="MyProblem.mae_loss_function"><a class="viewcode-back" href="../../src.processing_forecasts.html#processing_forecasts.multi_objective_optimization.MyProblem.mae_loss_function">[docs]</a>    <span class="k">def</span> <span class="nf">mae_loss_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">weights</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the MAE between the actual data and the weighted average forecast&quot;&quot;&quot;</span>
+        <span class="c1"># Compute the weighted average of the forecasts</span>
+        <span class="n">forecast</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">target_col</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">forecasts_cols</span><span class="p">]):</span>
+            <span class="n">forecast</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">*</span> <span class="n">weights</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="c1"># Compute the MAE between the actual data and the weighted average forecast</span>
+        <span class="n">mae</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">target_col</span><span class="p">],</span> <span class="n">forecast</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">mae</span></div>
+
+<div class="viewcode-block" id="MyProblem.overlay_dx_gain_function"><a class="viewcode-back" href="../../src.processing_forecasts.html#processing_forecasts.multi_objective_optimization.MyProblem.overlay_dx_gain_function">[docs]</a>    <span class="k">def</span> <span class="nf">overlay_dx_gain_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">weights</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the overlay_dx_score between the actual data and the weighted average forecast&quot;&quot;&quot;</span>
+        <span class="c1"># Compute the weighted average of the forecasts</span>
+        <span class="n">forecast</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">target_col</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">forecasts_cols</span><span class="p">]):</span>
+            <span class="n">forecast</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">*</span> <span class="n">weights</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        
+        <span class="c1">#print(&quot;forecast&quot;,forecast)</span>
+        <span class="c1">#print(&quot;target&quot;,self.df)</span>
+        <span class="n">metrics</span> <span class="o">=</span> <span class="n">Evaluate</span><span class="p">(</span> <span class="n">target_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">target_col</span><span class="p">],</span> <span class="n">prediction</span><span class="o">=</span> <span class="n">forecast</span><span class="p">)</span>
+        
+        <span class="c1"># convert forecast to pandas series with the name &quot;forecast&quot;</span>
+        <span class="n">forecast</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">forecast</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;forecast&quot;</span><span class="p">)</span>
+        <span class="n">forecast</span> <span class="o">=</span> <span class="n">forecast</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+        <span class="c1">#print(&quot;forecast&quot;,forecast)</span>
+
+        <span class="n">pct_overlay</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">overlay_dx_moo</span><span class="p">(</span><span class="n">forecast</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.1</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="c1">#print(&quot;pct_overlay&quot;,pct_overlay[&quot;forecast&quot;])</span>
+
+        <span class="k">return</span> <span class="n">pct_overlay</span><span class="p">[</span><span class="s2">&quot;forecast&quot;</span><span class="p">]</span></div></div>
+    
+<div class="viewcode-block" id="find_best_weights"><a class="viewcode-back" href="../../src.processing_forecasts.html#processing_forecasts.multi_objective_optimization.find_best_weights">[docs]</a><span class="k">def</span> <span class="nf">find_best_weights</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">forecasts_cols</span><span class="p">,</span><span class="n">target_col</span><span class="p">,</span><span class="n">max_evaluations</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;find_best_weights: find the best weights for the weighted average of forecasts according to the three objectives.</span>
+<span class="sd">        Three objectives:</span>
+<span class="sd">            1. Minimize the MAE</span>
+<span class="sd">            2. Minimize the RMSE</span>
+<span class="sd">            3. Maximize the overlay_dx_score</span>
+<span class="sd">        Find the best weights for the weighted average forecast according to the three objectives.</span>
+
+<span class="sd">    how it works: https://platypus.readthedocs.io/en/latest/getting-started.html#defining-a-problem</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df (pd.DataFrame): pandas dataframe with the forecasts and the target values</span>
+<span class="sd">        num_variables (int): number of variables</span>
+<span class="sd">        target_values (np.array): target values</span>
+<span class="sd">        forecasts (dict): dictionary of forecasts, keys are the approach names of the forecasts (str), values are the forecasts (np.array)</span>
+<span class="sd">        </span>
+<span class="sd">    Import: from src.processing_forecasts.multi_objective_optimization import find_best_weights</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+    <span class="n">problem</span> <span class="o">=</span> <span class="n">MyProblem</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">forecasts_cols</span><span class="p">,</span><span class="n">target_col</span><span class="p">,</span><span class="n">max_evaluations</span><span class="p">)</span>
+    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">NSGAII</span><span class="p">(</span><span class="n">problem</span><span class="p">)</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">max_evaluations</span><span class="p">)</span>
+    <span class="n">pareto_front</span> <span class="o">=</span> <span class="n">nondominated</span><span class="p">(</span><span class="n">optimizer</span><span class="o">.</span><span class="n">result</span><span class="p">)</span>
+    <span class="n">best_solution</span> <span class="o">=</span> <span class="n">pareto_front</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">best_weights</span> <span class="o">=</span> <span class="n">best_solution</span><span class="o">.</span><span class="n">variables</span>
+    <span class="n">best_results</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;RMSE&#39;</span><span class="p">:</span> <span class="n">best_solution</span><span class="o">.</span><span class="n">objectives</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;MAE&#39;</span><span class="p">:</span> <span class="n">best_solution</span><span class="o">.</span><span class="n">objectives</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;Overlay_dx&#39;</span><span class="p">:</span> <span class="n">best_solution</span><span class="o">.</span><span class="n">objectives</span><span class="p">[</span><span class="mi">2</span><span class="p">]}</span>  <span class="c1"># negate the gain objectives back to positive values</span>
+    <span class="k">return</span> <span class="n">best_weights</span><span class="p">,</span> <span class="n">best_results</span></div>
+    
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+
+    <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+    <span class="c1">#Create a dataframe of with two time series columns</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;Date&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;01-01-2000&#39;</span><span class="p">,</span> <span class="s1">&#39;01-02-2000&#39;</span><span class="p">,</span> <span class="s1">&#39;01-03-2000&#39;</span><span class="p">,</span> <span class="s1">&#39;01-04-2000&#39;</span><span class="p">,</span><span class="s1">&#39;01-05-2000&#39;</span><span class="p">,</span><span class="s1">&#39;01-06-2000&#39;</span><span class="p">,</span><span class="s1">&#39;01-07-2000&#39;</span><span class="p">,</span><span class="s1">&#39;01-08-2000&#39;</span><span class="p">,</span><span class="s1">&#39;01-09-2000&#39;</span><span class="p">]</span> <span class="p">,</span> <span class="s2">&quot;true&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">9</span><span class="p">],</span> <span class="s2">&quot;lstm&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">],</span> <span class="s2">&quot;var&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">7</span><span class="p">],</span> <span class="s2">&quot;cnn&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">13</span><span class="p">]})</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Date&quot;</span><span class="p">])</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;Date&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    <span class="c1">#Initialise the class</span>
+    <span class="c1">#Run the optimization</span>
+    <span class="n">best_weights</span><span class="p">,</span> <span class="n">best_results</span> <span class="o">=</span> <span class="n">find_best_weights</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;lstm&quot;</span><span class="p">,</span><span class="s2">&quot;var&quot;</span><span class="p">,</span><span class="s2">&quot;cnn&quot;</span><span class="p">]</span> <span class="p">,</span><span class="s2">&quot;true&quot;</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">best_weights</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">best_results</span><span class="p">)</span>
+
+</pre></div>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2023, Thomas Jaillon / SMILE
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/scripts/furo.js"></script>
+    </body>
+</html>
