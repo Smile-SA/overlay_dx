@@ -53,10 +53,14 @@ class MyProblem(Problem):
         variables = solution.variables
         loss_1 = self.rmse_loss_function(variables)
         loss_2 = self.mae_loss_function(variables)
-        gain = self.overlay_dx_gain_function(variables)[0]
-        print("gain",gain)
+        gain = self.overlay_dx_gain_function(variables)
+
+        if isinstance(gain, list):
+            gain = gain[0]  # Adjust this based on your actual needs
+
         solution.objectives[:] = [loss_1, loss_2, gain]
         solution.constraints[:] = [sum(variables) - 1]
+
     
     def rmse_loss_function(self,weights):
         """Compute the RMSE between the actual data and the weighted average forecast"""
