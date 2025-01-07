@@ -82,6 +82,9 @@ class Evaluate:
 
     def overlay_dx(self,x,y=None):
         #TODO : what if x = 0 ?????
+        ## ANSWER : just give a default constant value for now , lets go for x = 1 
+        if x == 0:
+            x = 1
         """overlay_dx computes the percentage of values where the absolute difference between the forecast and actual values is less than or equal to x"""
         if y is None:
             y = self.prediction

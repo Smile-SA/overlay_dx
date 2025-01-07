@@ -82,14 +82,13 @@ def generate_baseline_and_predictions(n_points=1000, freq='D'):
     #}
     #
     patterns = {
-        #'constant': (np.ones(n_points) * 100, {
-        #    'perfect': lambda x: x,
-        #    'noisy': lambda x: x + np.random.normal(0, 5, n_points),
-        #    'biased': lambda x: x * 1.1,
-        #    'delayed': lambda x: np.roll(x, 5),
-        #    'outliers': lambda x: x + np.where(np.random.random(n_points) > 0.98, 50, 0),
-        #    'missing_values': lambda x: np.where(np.random.random(n_points) > 0.95, np.nan, x)
-        #}),
+        'constant': (np.ones(n_points) * 100, {
+            'perfect': lambda x: x,
+            'noisy': lambda x: x + np.random.normal(0, 5, n_points),
+            'biased': lambda x: x * 1.1,
+            'delayed': lambda x: np.roll(x, 5),
+            'outliers': lambda x: x + np.where(np.random.random(n_points) > 0.98, 50, 0)
+        }),
         
         'linear_trend': (np.linspace(0, 100, n_points), {
             'perfect': lambda x: x,
@@ -168,7 +167,13 @@ def generate_baseline_and_predictions(n_points=1000, freq='D'):
         
         print(f"pattern_name: {pattern_name}")
         for pred_name, pred_func in predictors.items():
+            
             prediction = pred_func(baseline)
+            print(f"""
+            pred_name : {pred_name},
+            baseline : {baseline},
+            prediction : {prediction}
+            """)
             results[f'{pattern_name}_{pred_name}'] = prediction
             
             # Calculate metrics
