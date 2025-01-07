@@ -1,3 +1,6 @@
 # Byte-compiled / optimized files
 **/__pycache__/
 dist/*
+*.csv
+*.zip
+*.txt

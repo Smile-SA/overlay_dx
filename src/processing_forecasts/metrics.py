@@ -5,6 +5,7 @@ from sklearn.metrics import mean_absolute_error
 from sklearn.metrics import mean_absolute_percentage_error
 from sklearn.metrics import mean_squared_error
 import matplotlib.pyplot as plt
+import math
 
 class Evaluate:
     """Evaluate: this class contains different mertics that can be used for time series forecast evaluation \n
@@ -80,6 +81,7 @@ class Evaluate:
         return prop_covered
 
     def overlay_dx(self,x,y=None):
+        #TODO : what if x = 0 ?????
         """overlay_dx computes the percentage of values where the absolute difference between the forecast and actual values is less than or equal to x"""
         if y is None:
             y = self.prediction
@@ -194,7 +196,7 @@ class Evaluate:
             overlay_pct_values = []
             for pct in percentages:
                 # Calculate the x value corresponding to the percentage of the range
-                x = pct / 100 * value_range / 2
+                x = pct / 100 * value_range / 2  # TODO : REFACTOR ALL OF THIS , disambiguate this , check origin of value
 
                 # Calculate the overlay percentage using the overlay_x function
                 overlay_pct = self.overlay_dx(x,np.array(list(forecast.values())))
@@ -227,6 +229,62 @@ class Evaluate:
 
         # Return the results dictionary and the areas dictionary
         return results, areas
+
+    def round_up(self,number, digits):
+        factor = 10 ** digits
+        return math.ceil(number * factor) / factor
+
+    def overlay_dx_area_under_curve_metric(self,forecast,max_percentage,min_percentage,step):
+         # Calculate the range of the target values
+        value_range = np.max(self.target_values) - np.min(self.target_values)
+        #TODO : what if value_range == 0 (constant func)
+
+        # Define the percentages to calculate
+        percentages = np.arange(max_percentage, min_percentage, -step)
+        print(len(percentages))
+
+        # Calculate the overlay percentage for each percentage value for each forecast
+        overlay_pct_values = []
+        for i, pct in enumerate(percentages):
+            # Calculate the x value corresponding to the percentage of the range
+            x = pct / 100 * value_range / 2  # TODO : REFACTOR ALL OF THIS , disambiguate this , check origin of value
+            # Calculate the overlay percentage using the overlay_x function
+            overlay_pct = self.overlay_dx(x,np.array(list(forecast)))
+            overlay_pct_values.append(float(overlay_pct))
+            #print(f"""
+            #overlay input x : {x},
+            #overlay percent values list : {overlay_pct_values}
+            #overlay_value_this_iteration {i}: {overlay_pct}
+#
+            #""")
+
+        # Store the overlay percentages for this forecast in the results dictionary
+
+        # Add the overlay percentages to the curve values array
+        curve = overlay_pct_values
+        #print(f"""
+        #curve : {curve},
+        #percentages : {percentages} 
+        #""")
+        #area = np.trapz(curve, dx=step / 100 * value_range / 2)
+        #max_area = value_range * (max_percentage - min_percentage) / 200
+        dx = (percentages[0]-percentages[len(percentages)-1])/len(percentages)
+        area = np.trapz(
+            y=curve,
+            dx=dx # to get from 0 to 100 eve though in reality it is reversed
+        )
+        max_area = max_percentage*100  #  xmax = max percentage  , ymax = 100 (max possible overlay value)
+        #print(f"""
+        #area : {area}
+        #max area : {max_area}
+        #""")
+        percentage_covered = float(area / max_area)
+
+        return float(self.round_up(percentage_covered,2)) 
+    
+
+
+
 
 
     def overlay_dx_moo(self, forecasts_df, max_percentage, min_percentage, step):
