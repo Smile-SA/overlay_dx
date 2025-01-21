@@ -1,8 +1,8 @@
 
 # Configuration for Linear Regression
+random_state = 30
 LR_CONFIG = {
     'fit_intercept': True,
-    'normalize': False,
     'copy_X': True
 }
 
@@ -12,7 +12,8 @@ RF_CONFIG = {
     'max_depth': 10,
     'min_samples_split': 2,
     'min_samples_leaf': 1,
-    'bootstrap': True
+    'bootstrap': True,
+    "random_state" : random_state
 }
 
 # Configuration for XGBoost Regressor
@@ -21,7 +22,8 @@ XGB_CONFIG = {
     'learning_rate': 0.1,
     'max_depth': 6,
     'subsample': 1.0,
-    'colsample_bytree': 1.0
+    'colsample_bytree': 1.0,
+    "random_state" : random_state
 }
 
 # Configuration for LightGBM Regressor
@@ -30,7 +32,8 @@ LGBM_CONFIG = {
     'learning_rate': 0.1,
     'num_leaves': 50,
     'max_depth': 10,
-    'subsample_for_bin': 300000
+    'subsample_for_bin': 300000,
+    "random_state" : random_state
 }
 
 # Configuration for K Neighbors Regressor
@@ -38,13 +41,13 @@ KNN_CONFIG = {
     'n_neighbors': 5,
     'weights': 'uniform',
     'algorithm': 'auto',
-    'leaf_size': 30
+    'leaf_size': 30,
+    #"random_state" : random_state
 }
 
 # Configuration for ARIMA
 ARIMA_CONFIG = {
-    'order': (1, 1, 1),  # (p, d, q)
-    'seasonal_order': (1, 1, 1, 12)  # (P, D, Q, S)
+   "order" : (1,1,1)
 }
 
 # Configuration for FFT (Fourier Transform) in Time Series Analysis
