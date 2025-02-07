@@ -80,7 +80,9 @@ def prediction_graphs(
 
    #     Create the plot
         plt.figure(figsize=(12, 6))
+        confidence_interval = 1.96*np.std(test)
         plt.plot(downsampled_dates, downsampled_test, label='Test', color='blue', linewidth=2)
+        plt.fill_between(downsampled_dates, downsampled_test - confidence_interval,downsampled_test + confidence_interval,color='lightblue', alpha=0.5, label='95% Confidence Interval')
         plt.plot(downsampled_dates, downsampled_y_pred, label='Prediction', color='orange', linestyle='--', linewidth=2)
 
         # Add labels, legend, and title
@@ -113,15 +115,9 @@ def overlay_plot_all_models(
 
     df_overlay = pd.DataFrame(df_overlay)
     print(df_overlay)
-
     metric_exp = Evaluate(target_values=list(df_overlay["baseline"]),prediction=None).overlay_dx_visualisation_df(
         forecasts_df=df_overlay,max_percentage=100,min_percentage=0,step=0.1,
         save_in_file=save_in_file,
         saving_path=os.path.join(saving_path,"chinese_weather_overlay.png"),
     )
     plt.close()
-
-
-
-# saving of metrics will be done by .to_csv on on output df
-

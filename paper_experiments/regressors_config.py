@@ -56,6 +56,26 @@ FFT_CONFIG = {
     'threshold': 0.1
 }
 
+# Configuration for BaggingRegressor (replacing SVR)
+BAGGING_CONFIG = {
+    'n_estimators': 10,
+    'max_samples': 1.0,
+    'max_features': 1.0,
+    'bootstrap': True,
+    'bootstrap_features': False,
+    'random_state': random_state
+}
+
+EXTRATREES_CONFIG = {
+   'n_estimators': 100,
+   'max_depth': None,
+   'min_samples_split': 2,
+   'min_samples_leaf': 1,
+   'bootstrap': False,
+   'n_jobs': -1,
+   'random_state': random_state
+}
+
 
 
 
@@ -66,6 +86,8 @@ regressors_configs = {
     "LGBM_CONFIG" : LGBM_CONFIG,
     "KNN_CONFIG" : KNN_CONFIG,
     "ARIMA_CONFIG" : ARIMA_CONFIG,
-    "FFT_CONFIG" : FFT_CONFIG
+    "FFT_CONFIG" : FFT_CONFIG,
+    "BAGGING_CONFIG" : BAGGING_CONFIG,
+    "EXTRATREES_CONFIG" : EXTRATREES_CONFIG
 }
 

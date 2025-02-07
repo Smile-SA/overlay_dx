@@ -96,7 +96,9 @@ class Evaluate:
         pct_overlay = 100 * num_overlay / len(y)
         return pct_overlay
 
-    def calculate_overlay_percentages_multi(self, forecasts, max_percentage, min_percentage, step):
+    def calculate_overlay_percentages_multi(
+        self, forecasts, max_percentage, min_percentage, step,
+        ):
         """calculate_overlay_percentages_multi: calculate the overlay percentages for multiple forecasts
         
         Args:
@@ -144,6 +146,7 @@ class Evaluate:
         plt.ylim(0, 110)
         plt.xlim(max_percentage, min_percentage)
         plt.legend()
+        
         plt.show()
         
         # Compute the area under the curve for each forecast
@@ -157,7 +160,9 @@ class Evaluate:
         # Return the results dictionary and the areas dictionary
         return results, areas
     
-    def overlay_dx_visualisation_df(self, forecasts_df, max_percentage, min_percentage, step):
+    def overlay_dx_visualisation_df(self, forecasts_df, max_percentage, min_percentage, step,
+        save_in_file=False,
+        saving_path = None):
         """calculate_overlay_percentages_multi: calculate the overlay percentages for multiple forecasts
 
         Args:
@@ -181,7 +186,6 @@ class Evaluate:
             
         # Convert the DataFrame to a dictionary
         forecasts = forecasts_df.to_dict()
-
         # Calculate the range of the target values
         value_range = np.max(self.target_values) - np.min(self.target_values)
 
@@ -195,14 +199,19 @@ class Evaluate:
         curve_values = []
 
         # Calculate the overlay percentage for each percentage value for each forecast
+        #for name, forecast in forecasts.items():
+        #    print(len(forecasts_df[name]))
+        #return
         for name, forecast in forecasts.items():
+            forecast = forecasts_df[name]
             overlay_pct_values = []
             for pct in percentages:
                 # Calculate the x value corresponding to the percentage of the range
                 x = pct / 100 * value_range / 2  # TODO : REFACTOR ALL OF THIS , disambiguate this , check origin of value
 
                 # Calculate the overlay percentage using the overlay_x function
-                overlay_pct = self.overlay_dx(x,np.array(list(forecast.values())))
+                #print(len(forecast.values()))
+                overlay_pct = self.overlay_dx(x,np.array(forecast))
                 overlay_pct_values.append(overlay_pct)
 
             # Store the overlay percentages for this forecast in the results dictionary
@@ -220,6 +229,8 @@ class Evaluate:
         plt.ylim(0, 110)
         plt.xlim(max_percentage, min_percentage)
         plt.legend()
+        if save_in_file:
+            plt.savefig(saving_path)
         plt.show()
         
         # Compute the area under the curve for each forecast
@@ -283,7 +294,8 @@ class Evaluate:
         #""")
         percentage_covered = float(area / max_area)
 
-        return float(self.round_up(percentage_covered,2)) 
+        return float(self.round_up(percentage_covered,6))
+ 
     
 
 
