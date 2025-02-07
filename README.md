@@ -70,8 +70,10 @@ values, areas = evaluation.overlay_dx_visualisation_df(forecasts_df = forecast_d
 
 Overlay_dx is a score associated with a visualisation that provides a better understanding of the performance of our forecasts. Overlay_dx consists of several measures of the overlay metric, which draws an interval around the target values and returns the percentage of forecast values that fall within this interval. Overlay_dx calculates different measures of the overlay metric by reducing the size of its interval.  
     
-A score of 77% represents how well the forecasted values align with the actual values at different thresholds. It indicates that the achieved score is 77% of the maximum possible score, where perfect alignment would occur at all thresholds.  
-  
+A score of 77% represents how well the forecasted values align with the actual values at different thresholds. It indicates that the achieved score is 77% of the maximum possible score, where perfect alignment would occur at all thresholds. 
+
+![](images/Overlay_dx_general_fig_V2.3.jpg)
+
 The score reflects the overall accuracy relative to the ideal scenario. The higher the score, the better the alignment between forecasted and actual values, while a lower score suggests larger deviations.  
   
 The overlay curve visualization is the key advantage of this metric. It allows for a quick assessment of model performance. By observing the curve, you can easily identify where significant deviations from the ideal scenario occur, helping to point areas for improvement.  
