@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Ngo"
+  given-names: "Long H."
+  affiliation: "SMILE, France"
+  email: "hailong.ngo@smile.fr"
+- family-names: "Chamli"
+  given-names: "Mohammed Amine"
+  affiliation: "SMILE, France"
+  email: "mohammed.chamli@smile.fr"
+- family-names: "Rivalan"
+  given-names: "Jonathan"
+  affiliation: "SMILE, France"
+  email: "jonathan.rivalan@smile.fr"
+- family-names: "Jaillon"
+  given-names: "Thomas"
+  affiliation: "SMILE, France"
+  email: "thomas.jaillon@smile.fr"
+title: "Overlay_dx - Automating forecasting evaluation"
+date-released: 2025-02-07
+url: "https://github.com/Smile-SA/overlay_dx"
