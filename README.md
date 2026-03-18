@@ -1,7 +1,6 @@
 # overlay_dx reference implementation
 
 Overlay_dx is a visual based metric aimed to support forecasting evaluation. This repository provides multiple forecasting approaches along with other evaluation metrics to provide a benchmark tool for the overlay_dx metric efficiency. Also, various models and algorithms for analyzing and predicting time series data as well as additional tools are provided. 
-
   
 ## Features
 - Multiple forecasting models
@@ -12,10 +11,18 @@ Overlay_dx is a visual based metric aimed to support forecasting evaluation. Thi
 
 To install this project, ensure that you have Python 3.6 or higher installed. Use the following command to install the library and its dependencies:
 
-```schell
+- from this repository
+```shell
+git clone [repo]
+cd [repo]
 pip install requirements.txt
 ```
-  
+
+- from the Pypi package
+```shell
+pip install overlay-dx
+```
+
 ## Usage
 
 This project contains two sub-packages:  
