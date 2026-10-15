@@ -2,7 +2,7 @@
 
 Overlay_dx is a visual based metric aimed to support forecasting evaluation. This repository provides multiple forecasting approaches along with other evaluation metrics to provide a benchmark tool for the overlay_dx metric efficiency. Also, various models and algorithms for analyzing and predicting time series data as well as additional tools are provided. 
 
-Overlay_dx was published in Optimization and Learning. OLA 2025. Communications in Computer and Information Science, Apr 2025, Dubai, United Arab Emirates, France. pp.98-110 [https://arxiv.org/abs/2609.24586](https://arxiv.org/abs/2609.24586).
+Overlay_dx was published in Optimization and Learning. OLA 2025. Communications in Computer and Information Science, Apr 2025, Dubai, United Arab Emirates. pp.98-110 [https://arxiv.org/abs/2609.24586](https://arxiv.org/abs/2609.24586).
   
 ## Features
 - Multiple forecasting models
